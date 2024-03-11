@@ -5,7 +5,7 @@ import React, {
   FormEventHandler,
 } from "react";
 
-type RecipeType = {
+export type RecipeType = {
   id: string;
   image_url: string;
   publisher: string;
