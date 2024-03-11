@@ -7,8 +7,8 @@ const Navbar = () => {
   const {searchParam, setSearchParam, handleSubmit} = useGlobalState();
   
   return (
-    <nav className="flex justify-between items-center py-8 container mx-auto flex-col lg:flex-row gap-5 lg:gap-0">
-      <h2 className="text-2x1 font-semibold">
+    <nav className="flex justify-between items-center py-8 container mx-auto flex-col lg:flex-row gap-5 lg:gap-5">
+      <h2 className="text-2xl font-semibold">
         <NavLink
           to={"/"}
         >
