@@ -4,7 +4,7 @@ import { useGlobalState } from "../../context";
 
 const Navbar = () => {
 
-  const {searchParam, setSearchParam} = useGlobalState();
+  const {searchParam, setSearchParam, handleSubmit} = useGlobalState();
   
   return (
     <nav className="flex justify-between items-center py-8 container mx-auto flex-col lg:flex-row gap-5 lg:gap-0">
@@ -15,7 +15,7 @@ const Navbar = () => {
           FoodRecipe
         </NavLink>
       </h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="search"
