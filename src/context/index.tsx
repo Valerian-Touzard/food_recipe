@@ -3,6 +3,8 @@ import React, {
   createContext,
   useContext,
   FormEventHandler,
+  Dispatch,
+  SetStateAction,
 } from "react";
 
 export type RecipeType = {
@@ -12,6 +14,10 @@ export type RecipeType = {
   title: string;
 };
 
+export type RecipeDetail = {
+  recipe: RecipeType
+}
+
 ///-----LE CONTEXT -----////
 // Typage pour le context
 export type ContextType = {
@@ -20,6 +26,8 @@ export type ContextType = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
   recipeList: RecipeType[];
+  recipeDetail: RecipeDetail | null;
+  setRecipeDetail: Dispatch<SetStateAction<null>>;
 };
 
 // On exporte le context pour y accèder dans l'application
@@ -34,6 +42,7 @@ export const GlobalState = ({ children }: React.PropsWithChildren) => {
   const [searchParam, setSearchParam] = useState("");
   const [loading, setLoading] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
+  const [recipeDetail, setRecipeDetail] = useState(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +67,15 @@ export const GlobalState = ({ children }: React.PropsWithChildren) => {
 
   return (
     <GlobalContext.Provider
-      value={{ searchParam, setSearchParam, handleSubmit, loading, recipeList }}
+      value={{
+        searchParam,
+        setSearchParam,
+        handleSubmit,
+        loading,
+        recipeList,
+        recipeDetail,
+        setRecipeDetail,
+      }}
     >
       {children}
     </GlobalContext.Provider>
