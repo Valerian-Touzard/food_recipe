@@ -1,6 +1,6 @@
 import React from 'react'
-import { RecipeType } from '../../context'
 import { Link } from 'react-router-dom'
+import { RecipeType } from '../../models/recipeType'
 
 type Props = {
   recipe : RecipeType
