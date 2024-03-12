@@ -2,7 +2,6 @@ import React, {
   useState,
   createContext,
   useContext,
-  FormEventHandler,
   Dispatch,
   SetStateAction,
 } from "react";
@@ -15,8 +14,21 @@ export type RecipeType = {
 };
 
 export type RecipeDetail = {
-  recipe: RecipeType
-}
+  recipe: RecipeDetailType;
+};
+
+export type RecipeDetailType = {
+  id: string;
+  publisher: string;
+  image_url: string;
+  title: string;
+  ingredients: IngredientType[];
+};
+export type IngredientType = {
+  quantity: number | null;
+  unit: string;
+  description: string;
+};
 
 ///-----LE CONTEXT -----////
 // Typage pour le context
