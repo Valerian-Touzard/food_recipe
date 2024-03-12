@@ -4,7 +4,7 @@ import { useGlobalState } from "../../context";
 
 const Details = () => {
   const { id } = useParams();
-  const { recipeDetail, setRecipeDetail } = useGlobalState();
+  const { recipeDetail, setRecipeDetail, handleAddToFavorite } = useGlobalState();
 
   useEffect(() => {
     getRecipeDetails();
@@ -20,8 +20,6 @@ const Details = () => {
       setRecipeDetail(data?.data);
     }
   };
-
-  console.log(recipeDetail);
 
   return (
     <div className="container mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -42,7 +40,7 @@ const Details = () => {
           </h3>
         </div>
         <div>
-          <button className="p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-black text-white">
+          <button onClick={() => handleAddToFavorite(recipeDetail!.recipe)} className="p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-black text-white">
             Save as favorites
           </button>
         </div>

@@ -5,7 +5,7 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { RecipeDetail, RecipeType } from "../models/recipeType";
+import { RecipeDetail, RecipeDetailType, RecipeType } from "../models/recipeType";
 
 
 ///-----LE CONTEXT -----////
@@ -18,6 +18,8 @@ export type ContextType = {
   recipeList: RecipeType[];
   recipeDetail: RecipeDetail | null;
   setRecipeDetail: Dispatch<SetStateAction<null>>;
+  handleAddToFavorite: (item: RecipeDetailType | undefined) => void,
+  favoritesList: RecipeDetailType[]
 };
 
 // On exporte le context pour y accèder dans l'application
@@ -33,6 +35,7 @@ export const GlobalState = ({ children }: React.PropsWithChildren) => {
   const [loading, setLoading] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
   const [recipeDetail, setRecipeDetail] = useState(null);
+  const [favoritesList, setFavoritesList] = useState<RecipeDetailType[]>([])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +56,20 @@ export const GlobalState = ({ children }: React.PropsWithChildren) => {
     }
   };
 
-  console.log(loading, recipeList);
+  const handleAddToFavorite = (getCurrentItem : RecipeDetailType | undefined) =>{
+    let cpyFavoriteList = [...favoritesList];
+    const index = cpyFavoriteList.findIndex(item => item.id === getCurrentItem?.id);
+
+    if(index === -1){
+      cpyFavoriteList.push(getCurrentItem as RecipeDetailType);
+    }else{
+      cpyFavoriteList.splice(index)
+    }
+    setFavoritesList(cpyFavoriteList);
+  }
+
+  console.log(favoritesList);
+  
 
   return (
     <GlobalContext.Provider
@@ -65,6 +81,8 @@ export const GlobalState = ({ children }: React.PropsWithChildren) => {
         recipeList,
         recipeDetail,
         setRecipeDetail,
+        handleAddToFavorite,
+        favoritesList
       }}
     >
       {children}
