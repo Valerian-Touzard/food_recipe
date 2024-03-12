@@ -4,7 +4,8 @@ import { useGlobalState } from "../../context";
 
 const Details = () => {
   const { id } = useParams();
-  const { recipeDetail, setRecipeDetail, handleAddToFavorite } = useGlobalState();
+  const { recipeDetail, favoritesList, setRecipeDetail, handleAddToFavorite } =
+    useGlobalState();
 
   useEffect(() => {
     getRecipeDetails();
@@ -40,8 +41,15 @@ const Details = () => {
           </h3>
         </div>
         <div>
-          <button onClick={() => handleAddToFavorite(recipeDetail!.recipe)} className="p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-black text-white">
-            Save as favorites
+          <button
+            onClick={() => handleAddToFavorite(recipeDetail!.recipe)}
+            className="p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-black text-white"
+          >
+            {favoritesList && favoritesList.length > 0 && favoritesList.findIndex(
+              (item) => item.id === recipeDetail!.recipe.id
+            ) !== -1
+              ? "Remove from favorites"
+              : "Add to favorites"}
           </button>
         </div>
         <div>
@@ -54,7 +62,9 @@ const Details = () => {
                 <span className="text-2xl font-semibold text-black">
                   {ingredient.quantity} {ingredient.unit}
                 </span>
-                <span className="text-2xl font-semibold text-black">{ingredient.description}</span>
+                <span className="text-2xl font-semibold text-black">
+                  {ingredient.description}
+                </span>
               </li>
             ))}
           </ul>
